@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Copyright (C) LA Sistemas - All Rights Reserved.
 #
 # Written by Leonardo - ledharaujo@gmail.com, May 2022.
@@ -9,9 +8,11 @@
 # Proprietary and confidential.
 
 
+# Constants.
+VERSION='1.0.0'
+
 # Functions.
 function banner {
-
   echo "
     Welcome to the command-line interface.
 
@@ -29,6 +30,37 @@ function banner {
   "
 }
 
+function show_help {
+  echo "
+    Usage: michelle [command] [options]
+
+    Displays help information.
+
+    Options:
+
+      -h, --help                    Output usage information.
+      -v, --version                 Output version of this CLI.
+
+    Commands:
+      acp                           It's a combination of git add ., git commit and git push.
+  "
+}
+
+function acp {
+  git add . && git commit && git push
+}
+
 
 # Process micelle-cli.
-banner
+if [ -z $1 ]; then
+  banner
+
+elif [ -n $1 ] && [ $1 == '-v' ] || [ $1 == '--version' ]; then
+  echo $VERSION
+
+elif [ -n $1 ] && [ $1 == 'acp' ]; then
+  acp
+
+elif [ -n $1 ] && [ $1 == '-h' ] || [ $1 == '--help' ]; then
+  show_help
+fi
