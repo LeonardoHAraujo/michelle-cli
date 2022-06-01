@@ -42,12 +42,12 @@ function show_help {
       -v, --version                 Output version of this CLI.
 
     Commands:
-      acp [branch]                  It's a combination of git add ., git commit and git push -u [branch].
+      acp [branch]                  It's a combination of git add ., git commit and git push -u origin [branch].
   "
 }
 
 function acp {
-  git add . && git commit && git push -u $1
+  git add . && git commit && git push -u origin $1
 }
 
 
