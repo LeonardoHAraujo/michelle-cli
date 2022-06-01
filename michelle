@@ -42,12 +42,12 @@ function show_help {
       -v, --version                 Output version of this CLI.
 
     Commands:
-      acp                           It's a combination of git add ., git commit and git push.
+      acp [branch]                  It's a combination of git add ., git commit and git push -u [branch].
   "
 }
 
 function acp {
-  git add . && git commit && git push
+  git add . && git commit && git push -u $1
 }
 
 
@@ -58,9 +58,13 @@ if [ -z $1 ]; then
 elif [ -n $1 ] && [ $1 == '-v' ] || [ $1 == '--version' ]; then
   echo $VERSION
 
-elif [ -n $1 ] && [ $1 == 'acp' ]; then
-  acp
+elif [ -n $1 ] && [ $1 == 'acp' ] && [ "$2" != '' ]; then
+  acp $2
 
 elif [ -n $1 ] && [ $1 == '-h' ] || [ $1 == '--help' ]; then
   show_help
+
+else
+  echo "Command not found. run 'michelle -h' for help."
 fi
+
