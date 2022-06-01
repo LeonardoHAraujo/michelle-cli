@@ -43,6 +43,7 @@ function show_help {
 
     Commands:
       acp [branch]                  It's a combination of git add ., git commit and git push -u origin [branch].
+      find [file name]              It's a alias to find a file on current directory.
   "
 }
 
@@ -50,6 +51,18 @@ function acp {
   git add . && git commit && git push -u origin $1
 }
 
+function find_file {
+  if [ "$1" != '' ]; then
+    file=$(find . -name $1)
+
+    if [ "$file" == '' ]; then
+      echo 'File not found.'
+
+    else
+      echo $file
+    fi
+  fi
+}
 
 # Process micelle-cli.
 if [ -z $1 ]; then
@@ -64,7 +77,15 @@ elif [ -n $1 ] && [ $1 == 'acp' ] && [ "$2" != '' ]; then
 elif [ -n $1 ] && [ $1 == '-h' ] || [ $1 == '--help' ]; then
   show_help
 
+elif [ -n $1 ] && [ $1 == 'find' ]; then
+  if [ -n $2 ]; then
+    find_file $2
+
+  else
+    echo 'Invalid command. run 'michelle -h' for help.'
+  fi
+
 else
-  echo "Command not found. run 'michelle -h' for help."
+  echo 'Command not found. run 'michelle -h' for help.'
 fi
 
