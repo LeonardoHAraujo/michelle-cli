@@ -9,7 +9,7 @@
 
 
 # Constants.
-VERSION='1.1.0'
+VERSION='1.2.0'
 
 # Functions.
 function banner {
@@ -53,7 +53,7 @@ function acp {
 
 function find_file {
   if [ "$1" != '' ]; then
-    file=$(find . -name $1)
+    file=$(find . -type f -name $1)
 
     if [ "$file" == '' ]; then
       echo 'File not found.'
