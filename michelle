@@ -59,7 +59,10 @@ function find_file {
       echo 'File not found.'
 
     else
-      echo $file
+      for f in $file
+      do
+        echo $f
+      done
     fi
   fi
 }
