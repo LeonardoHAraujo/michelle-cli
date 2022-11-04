@@ -9,7 +9,7 @@
 
 
 # Constants.
-VERSION='1.2.0'
+VERSION='2.2.0'
 
 # Functions.
 function banner {
@@ -44,6 +44,7 @@ function show_help {
     Commands:
       acp [branch]                  It's a combination of git add ., git commit and git push -u origin [branch].
       find [file name]              It's a alias to find a file on current directory.
+      ff [folder(s) and file]       It's a command to create folder(s) and file (example/example.js).
   "
 }
 
@@ -67,6 +68,29 @@ function find_file {
   fi
 }
 
+function create_folder_and_file {
+  if [ "$1" != '' ]; then
+    IN=$1
+    arrIN=(${IN//// })
+
+    folder="./"
+    file=""
+
+    for i in "${arrIN[@]}"; do
+      if [[ $i == *.* ]]; then
+        if [ -n $file ]; then
+          file="$i"
+        fi
+      else
+        folder+="$i/"
+      fi
+    done
+
+    mkdir -p $folder
+    touch "$folder$file"
+  fi
+}
+
 # Process micelle-cli.
 if [ -z $1 ]; then
   banner
@@ -83,6 +107,14 @@ elif [ -n $1 ] && [ $1 == '-h' ] || [ $1 == '--help' ]; then
 elif [ -n $1 ] && [ $1 == 'find' ]; then
   if [ -n $2 ]; then
     find_file $2
+
+  else
+    echo 'Invalid command. run 'michelle -h' for help.'
+  fi
+
+elif [ -n $1 ] && [ $1 == 'ff' ]; then
+  if [ -n $2 ]; then
+    create_folder_and_file $2
 
   else
     echo 'Invalid command. run 'michelle -h' for help.'

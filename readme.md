@@ -15,5 +15,6 @@ For instalation `michelle-cli` make following steps:
 
 - Make download of `michelle` file in this repository.
 - Move this file to `/usr/local/bin`.
+- Run `sudo chmod +x /usr/local/bin/michelle`
 - Now run `michelle`.
 
